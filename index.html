@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="./style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+       <div class="portal">
+           <div class="main">
+           <div class="txt">
+   <h1 id="text">Weather</h1>
+   <img width="400px"  src="images/p2-removebg-preview.png" alt="">
+   <h1 id="degree">8.02</h1>
+   <p id="feel">feels like </p>
+   <h2 id="place">-</h2>
+           </div>
+           <div class="pic">
+            <input class="typ" type="text" placeholder="kakkanad">
+            <hr>
+            <button id="search" onclick="getDetails()"><span><i class="fa-solid fa-magnifying-glass"></i></span></button>
+            <br>
+            <br>
+            <hr>
+             <h2>Weather Details</h2>
+                    <br>
+                    <h4 class="con">Country</h4>
+                    <p id="country">-</p>
+                    <br>
+                    <h4 class="con">City</h4>
+                    <p id="city">-</p>
+                    <br>
+                    <h4 class="con">Humidity</h4>
+                    <p id="humidity">-</p>
+                    <br>
+                    <h4 class="con">Wind</h4>
+                    <p id="wind">-</p>
+                    <br>
+                    <h4 class="con">Pressure</h4>
+                    <p id="pressure">-</p>
+                    <br>
+   </div>
+       </div>
+       </div>
+    </div>
+   </body>
+   <script>
+async function getDetails()
+{
+    const response=await fetch("https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric",{
+        method:"GET"
+    })
+    var data = await response.json()
+    console.log(data);
+    document.querySelector("#city").innerHTML=data.name;    
+    document.querySelector("#country").innerHTML=data.sys.country;    
+    document.querySelector("#humidity").innerHTML=data.main.humidity + '%';    
+    document.querySelector("#wind").innerHTML=data.wind.deg +'°c';
+    document.querySelector("#pressure").innerHTML=data.main.pressure + 'hPa';  
+    document.querySelector("#feel").innerHTML=data.main.temp+'°c';
+    document.querySelector("#degree").innerHTML=data.main.temp+'°c';
+    document.querySelector("#place").innerHTML=data.name;
+}
+getDetails();
+   </script>
+ 
+</html>
